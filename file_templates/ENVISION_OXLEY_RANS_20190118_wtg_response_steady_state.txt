@@ -1,0 +1,32 @@
+###############################################################################
+# IEA Wind Task 31 "WakeBench"
+# Work Package 2
+# Phase 3
+# The SWiFT Benchmarks
+#
+# Example file for wind turbine response for steady-state simulation tools
+# Guidelines:
+# - For variable names, please use underscores (e.g., rotor_speed)
+# - For units, please use spaces between each unit (e.g., "N m"), no
+#   spaces between prefixes (e.g., "kW") or between exponents (e.g., "m s-1")
+###############################################################################
+## Neutral benchmark
+###############################################################################
+name,value,unit
+rotor_speed,42.934974,"rpm"
+power,94139.60,"W"
+torque,20937.8719,"N m"
+pitch,1.6641,"deg"
+blade_root_bending_moment_y,43434.377,"N m"
+###############################################################################
+## Unstable benchmark
+###############################################################################
+name,value,unit
+rotor_speed,34.758673,"rpm"
+power,47197.35,"W"
+torque,12966.59,"N m"
+pitch,1.6641,"deg"
+blade_root_bending_moment_y,28471.361,"N m"
+###############################################################################
+# Please add more lines with all relevant quantities.
+###############################################################################

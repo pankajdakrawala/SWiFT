@@ -1,0 +1,111 @@
+###############################################################################
+# IEA Wind Task 31 "WakeBench"
+# Work Package 2
+# Phase 3
+# The SWiFT Benchmarks
+#
+# Example file for simulation setup
+# Guidelines:
+# - The values provided herein are mere examples
+# - You will need to add and remove parameters
+# - Populate this file with all relevant parameters of your model
+# - For each parameter, please include: name, value, unit, and description
+# - For each time you submit new results to the benchmark, please update this
+#    file to reflect your simulation settings
+# - When relevant, add information about turbine_model and wake_model as well
+###############################################################################
+flow_model:
+  name: "GWCFD"
+  type: "RANS"
+  mesh:
+    -
+      name: "dx_{base}"
+      value: 12.5
+      unit: "m"
+      description: "The baseline grid spacing along x"
+    -
+      name: "dy_{base}"
+      value: 12.5
+      unit: "m"
+      description: "The baseline grid spacing along y"
+    -
+      name: "dz_{wall}"
+      value: 2.0
+      unit: "m"
+      description: "The baseline grid spacing at wall along z"
+      remarks: >
+        start with this resolution and keep this constant resolution until 10 m.
+    -
+      name: "dz_{rotor}"
+      value: 5.0
+      unit: "m"
+      description: "The baseline grid spacing in the rotor region along z"
+      remarks: >
+        For z above 10m, expand the grid from dz_{wall} to dz_{rotor} at the growth ratio 1.12.
+    -    
+      name: "h_{rotorMesh}"
+      value: 200.0
+      unit: "m"
+      description: "The height until the rotor mesh goes"
+      remarks: >
+        Once the grid size in z-direction reaches dz_{rotor} maintain this constant spacing until h_{rotorMesh}.
+    -    
+      name: "dz_{max}"
+      value: 100.0
+      unit: "m"
+      description: "The max grid spacing in the z-direction"
+      remarks: >
+        For z above h_{rotorMesh}, expand the grid from dz_{rotor} to dz_{max} at the growth ratio 1.20.
+    -    
+      name: "refineLevels"
+      value: 3
+      unit: "-"
+      description: "Number of refinement layers in the turbine region"
+      remarks: >
+        Local successive refinement done around the rotor.
+    -
+      name: "n_x"
+      value: 300
+      unit: "-"
+      description: "number of points along x"
+    -
+      name: "n_y"
+      value: 300
+      unit: "-"
+      description: "number of points along y"
+    -
+      name: "n_z"
+      value: 100
+      unit: "-"
+      description: "number of points along x"    
+  initial_conditions:
+    -
+      name: "z_0_{neutral}"
+      value: 0.01195478
+      unit: "m"
+      description: "roughness length for neutral benchmark"
+    -
+      name: "z_0_{unstable}"
+      value: 0.01195478
+      unit: "m"
+      description: "roughness length for unstable benchmark"
+    -
+      name: "U_{10, neutral}"
+      value: 6.7
+      unit: "m s-1"
+      description: "reference (10m) horizontal wind speed for neutral benhcmark"
+    -
+      name: "U_{10, unstable}"
+      value: 7.3
+      unit: "m s-1"
+      description: "reference (10m) horizontal wind speed for unstable benhcmark"
+    -
+      name: "LMO_{neutral}"
+      value: 2500
+      unit: "m"
+      description: "MO length scale for neutral benchmark"
+    -
+      name: "LMO_{unstable}"
+      value: -100
+      unit: "m"
+      description: "MO length scale for unstable benchmark"
