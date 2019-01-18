@@ -77,20 +77,20 @@ flow_model:
       name: "span_z"
       value: 3000.0
       unit: "m"
-      description: "grid span along x"    
+      description: "grid span along x"   
   initial_conditions:
     -
       name: "z_0"
-      value: 0.01195478
+      value: 0.007479
       unit: "m"
-      description: "roughness length for neutral benchmark"
+      description: "roughness length for unstable benchmark"
     -
       name: "U_{10}"
-      value: 6.7
+      value: 7.3
       unit: "m s-1"
-      description: "reference (10m) horizontal wind speed for neutral benhcmark"
+      description: "reference (10m) horizontal wind speed for unstable benhcmark"
     -
       name: "LMO"
-      value: 2500
+      value: -100
       unit: "-"
-      description: "MO length scale for neutral benchmark"
+      description: "MO length scale for unstable benchmark"
