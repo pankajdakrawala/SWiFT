@@ -16,7 +16,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Where should I upload my simulation results to?" href="submissions.html" />
+    <link rel="next" title="What to submit?" href="submissions.html" />
     <link rel="prev" title="Measurements" href="measurements.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -46,9 +46,11 @@
 <div class="section" id="turbine-model">
 <h2>Turbine Model<a class="headerlink" href="#turbine-model" title="Permalink to this headline">¶</a></h2>
 <p>The turbine present at the SWiFT test site is a modified version of a Vestas V27. The data related to the wind turbine is stored in the github repository under the folder <a class="reference external" href="https://github.com/NREL/wakebench_swift/tree/master/wt_data">wt_data</a>. A version number is used to accommodate for potential versions of the turbine model that may be released in the future. For now, only one version is present: <code class="docutils literal notranslate"><span class="pre">v1</span></code>, and it is considered the official wind-turbine model for this benchmark unless specified otherwise.</p>
-<p>The folder  <code class="docutils literal notranslate"><span class="pre">wt_data</span></code> has the following subfolders:</p>
+<p>The folder  <code class="docutils literal notranslate"><span class="pre">wt_data/v1/</span></code> has the following subfolders:</p>
 <ul class="simple">
-<li><cite>FAST7_model</cite>: Contains the simulation model for the program <a class="reference external" href="https://nwtc.nrel.gov/FAST7">FAST7</a>. An <a class="reference external" href="https://openfast.readthedocs.io/">OpenFAST</a> version will be provided in the near future. All the necessary files, including the FAST binary are provided in this folder. The model was developed by C. Kelley and J. White from Sandia National Laboratories. The model was tuned to match the measurements data (see the report mentioned below). Since most measurements were present below rated wind speed, the data are only provided for this range of wind speeds.</li>
+<li><cite>FAST7_model</cite>: Contains the simulation model for the program <a class="reference external" href="https://nwtc.nrel.gov/FAST7">FAST7</a>.  All the necessary files, including the FAST binary are provided in this folder. The model was developed by C. Kelley and J. White from Sandia National Laboratories. The model was tuned to match the measurements data (see the report mentioned below). Since most measurements were present below rated wind speed, the data are only provided for this range of wind speeds.</li>
+<li><cite>OpenFAST_model</cite>: Contains the model for <a class="reference external" href="https://openfast.readthedocs.io/">OpenFAST</a>  1 and 2. It is recommended to use the <cite>OpenFAST2</cite> model (<cite>_OF2</cite>) since the aerodynamic module received some important updates between <cite>OpenFAST1</cite> and <cite>OpenFAST2</cite> which affects the results.</li>
+<li><cite>OpenFAST_model_NALU</cite>: Containes the <cite>OpenFAST1</cite> model, adjusted such that it can be used directly within NALU (<cite>WakeMod=0</cite> and <cite>CompInflow=2</cite>)</li>
 <li><dl class="first docutils">
 <dt><cite>Raw_model</cite>: To ease the implementation of the turbine model into another format than the FAST format, simple CSV files are provided in this directory. The data matches the data present in the <cite>FAST_model</cite> but its format should be straightforward to read. This folder contains:</dt>
 <dd><ul class="first last">
@@ -64,8 +66,9 @@
 <li><dl class="first docutils">
 <dt><cite>Simulated_data</cite>: This folder contains simulated data obtained using the FAST model. These can be useful to compare the results from another model to the FAST results. Such data includes:</dt>
 <dd><ul class="first last">
-<li><code class="docutils literal notranslate"><span class="pre">RotorPerformances.csv</span></code>: Pitch, Rotational Speed, Power, Thrust, Blade Root Flapwise (out-of-plane) moment,  as function of wind speed.</li>
-<li><code class="docutils literal notranslate"><span class="pre">BladeAeroPerformances.csv</span></code>: Loads and inductions along the span of the blade for different wind speed. (coming soon)</li>
+<li><code class="docutils literal notranslate"><span class="pre">RotorPerformances.csv</span></code>: Pitch, Rotational Speed, Power, Thrust, Blade Root Flapwise (out-of-plane) moment, as function of wind speed, as obtained by the FAST7 model.</li>
+<li><code class="docutils literal notranslate"><span class="pre">RotorPerformances_OF2.csv</span></code>: Similar data but obtained with the <cite>OpenFAST2</cite> model</li>
+<li><code class="docutils literal notranslate"><span class="pre">AeroPerformances.csv</span></code>: Loads and inductions along the span of the blade for different wind speed as obtained by the FAST7 model</li>
 </ul>
 </dd>
 </dl>
@@ -78,8 +81,8 @@
 <li>Brian R. Resor and Bruce LeBlanc - <em>An Aeroelastic Reference Model for the SWIFT Turbines</em>, Sandia report SAND2014-19136, 2014</li>
 </ul>
 </div>
-<div class="section" id="benchmark-phase-1-code-calibration">
-<span id="phase1"></span><h2>Benchmark Phase 1: Code Calibration<a class="headerlink" href="#benchmark-phase-1-code-calibration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="benchmark-phase-1-code-calibration-completed">
+<span id="phase1"></span><h2>Benchmark Phase 1: Code Calibration (COMPLETED)<a class="headerlink" href="#benchmark-phase-1-code-calibration-completed" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><em>The objective of this phase is to provide an opportunity for model calibration before the blind comparison.</em></div></blockquote>
 <p>In Phase 1 of the benchmark, the wind-turbine wake is not yet considered. Instead, the atmospheric inflow and turbine response are considered. Participants are requested to submit their results for as many of the requested quantities as possible, according to the level of fidelity of their simulation tool. Publicly released python notebooks will show the analysis method used to compute diagnostics from the submitted results. This process is done to ensure consistency of the methodology across groups, and to guarantee repeatability of the analysis.</p>
@@ -129,7 +132,7 @@ For additional quantities of interest, the simulated values are compared to the 
 <li><code class="docutils literal notranslate"><span class="pre">&lt;x&gt;</span></code> is the downstream distance <span class="math notranslate nohighlight">\(x\)</span> normalized by the rotor diameter <span class="math notranslate nohighlight">\(D\)</span></li>
 <li>File should contain <span class="math notranslate nohighlight">\(u,v,w\)</span> values, which are four-dimensional: <span class="math notranslate nohighlight">\((n_t \times n_x \times n_y \times n_z)\)</span>. For this submission, <span class="math notranslate nohighlight">\(n_x=1\)</span> (<span class="math notranslate nohighlight">\(x=-65~\mathrm{m}\sim-2.5\mathrm{D}\)</span>) and the time is given in units of seconds, since the start of the simulation usable time (i.e., not counting spin-up)</li>
 <li>The length of the time series to be uploaded is left to the discretion of the participant. We request that the simulation be long enough so that its statistics are converged.</li>
-<li>The sampling frequency of the time series to be uploaded should be at least 0.5 Hz.</li>
+<li>The sampling frequency of the time series to be uploaded should be at least 1 Hz.</li>
 </ul>
 </dd>
 </dl>
@@ -166,8 +169,8 @@ For additional quantities of interest, the simulated values are compared to the 
 <dd><ul class="first last">
 <li>A template for this file can be downloaded <a class="reference download internal" href="_downloads/template_YYYYMMDD_wtg_response.txt" download=""><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></li>
 <li><code class="docutils literal notranslate"><span class="pre">&lt;YYYYMMDD&gt;</span></code> is the file submission date</li>
-<li>File shall have one column per variable (including time) and <span class="math notranslate nohighlight">\(n_t\)</span> rows</li>
-<li>Requested variables are time series of rotor speed, generator power, generator torque, pitch for one of the blades, and blade-root out-of-plane bending moment for one of the blades</li>
+<li>File shall have one column per variable (including time) and <span class="math notranslate nohighlight">\(n_t\)</span> rows of data (don’t upload the spin up!)</li>
+<li>Requested variables are time series of hub-height wind speed at the turbine (m/s), rotor power (kW), rotor torque (N m), blade pitch for one blade (deg), blade root flapwise moment for one blade (N m), blade root edgewise moment for one blade (N m), generator power (kW), generator torque (N m), aerodynamic thrust force (N), thrust coefficient (-), total thrust force (N)</li>
 </ul>
 </dd>
 </dl>
@@ -184,8 +187,8 @@ For additional quantities of interest, the simulated values are compared to the 
 <dd><ul class="first last">
 <li>A template for this file can be downloaded <a class="reference download internal" href="_downloads/template_YYYYMMDD_wtg_response_steady_state.txt" download=""><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></li>
 <li><code class="docutils literal notranslate"><span class="pre">&lt;YYYYMMDD&gt;</span></code> is the file submission date</li>
-<li>File shall have three columns: variable name, variable value, variable unit</li>
-<li>Requested variables are the same as those requested for the time-stepping tools, and their value set to NaN when model cannot simulate them</li>
+<li>File shall have two columns: variable name, variable value</li>
+<li>Requested variables are the same as those requested for the time-stepping tools, and their value set to NaN (not -999.0) when model cannot simulate them</li>
 </ul>
 </dd>
 </dl>
@@ -206,6 +209,7 @@ For additional quantities of interest, the simulated values are compared to the 
 <blockquote>
 <div><em>The objective of the second step of the blind comparison is to provide a first assessment of the skill of the simulation tool.</em></div></blockquote>
 <p>In both parts of this phase, participants are requested to submit their results for as many of the requested quantities as possible, according to the level of fidelity of their simulation tool. Publicly released python notebooks will show the analysis method used to compute diagnostics from the submitted results. This process is done to ensure consistency of the methodology across groups, and to guarantee repeatability of the analysis. Participants are asked to submit the simulation setup information as well as the simulation results listed below.</p>
+<p><strong>Please keep results for each benchmark separate, in folders called neutral, unstable and stable.</strong></p>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Simulation setup:</dt>
@@ -220,7 +224,7 @@ For additional quantities of interest, the simulated values are compared to the 
 <dd><ul class="first last">
 <li>Same as requested in Phase 1 for atmospheric inflow and turbine response</li>
 <li>In addition to atmospheric inflow and turbine response, several netcdf files are uploaded to characterize the modeled flow in the wake: one for each <span class="math notranslate nohighlight">\(x\)</span> distance (i.e., not only at <span class="math notranslate nohighlight">\(x=-2.5\)</span> D, but also between <span class="math notranslate nohighlight">\(x=1\)</span> D and <span class="math notranslate nohighlight">\(x=8\)</span> D in <span class="math notranslate nohighlight">\(1\)</span> D increments)</li>
-<li>The number of uploaded files for characterization of the flow (inflow and wake) will be 9 (one per downstream distance)</li>
+<li>The number of uploaded files for characterization of the flow (inflow and wake) will be 9 (one per downstream distance). We are keeping these netcdf files separate for each <span class="math notranslate nohighlight">\(x\)</span> because some participants have really high resolution meshes and adding more than one <span class="math notranslate nohighlight">\(x\)</span> in there would make for files that are too large to download!</li>
 </ul>
 </dd>
 </dl>
@@ -231,6 +235,7 @@ For additional quantities of interest, the simulated values are compared to the 
 <h2>Benchmark Phase 3: Iteration<a class="headerlink" href="#benchmark-phase-3-iteration" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><em>The objective of this phase is to interrogate results to understand where models work well and where improvements are required.</em></div></blockquote>
+<p><strong>Please keep results for each benchmark separate, in folders called neutral, unstable and stable.</strong></p>
 <p>In Phase 3, participants are encouraged to revise their simulations and submit updated results. Results from similar models are grouped accordingly to help identify potential improvements to the code or its use. No calibration of the models can be performed at this stage. The calibration is limited to Phase 1. At each iteration, participants are asked to submit the same files requested in Phase 2 in addition to:</p>
 <ul class="simple">
 <li><dl class="first docutils">
@@ -276,13 +281,12 @@ For additional quantities of interest, the simulated values are compared to the 
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Benchmark Simulations</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#general-guidelines">General Guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#turbine-model">Turbine Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#benchmark-phase-1-code-calibration">Benchmark Phase 1: Code Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#benchmark-phase-1-code-calibration-completed">Benchmark Phase 1: Code Calibration (COMPLETED)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#benchmark-phase-2-blind-comparison">Benchmark Phase 2: Blind Comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#benchmark-phase-3-iteration">Benchmark Phase 3: Iteration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="submissions.html">Where should I upload my simulation results to?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="submissions.html#what-should-i-submit">What should I submit?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="submissions.html">What to submit?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swift_neutral_evolution.html">Neutral Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swift_stable_evolution.html">Stable Benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="swift_unstable_dynamics.html">Unstable Benchmark</a></li>
@@ -295,7 +299,7 @@ For additional quantities of interest, the simulated values are compared to the 
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="measurements.html" title="previous chapter">Measurements</a></li>
-      <li>Next: <a href="submissions.html" title="next chapter">Where should I upload my simulation results to?</a></li>
+      <li>Next: <a href="submissions.html" title="next chapter">What to submit?</a></li>
   </ul></li>
 </ul>
 </div>
