@@ -1,0 +1,33 @@
+###############################################################################
+# IEA Wind Task 31 "WakeBench"
+# Work Package 2
+# Phase 2
+# The SWiFT Benchmarks
+#
+# Example file for wind turbine response for steady-state simulation tools
+#
+# Guidelines:
+# - Ensure your results make sense
+# - Check your units
+# - Use nan for missing values
+###############################################################################
+
+###############################################################################
+## Unstable benchmark
+###############################################################################
+name,value
+hub_wind_speed_[m_s-1],6.70
+rotor_power_[W],47197.35
+rotor_torque_[N_m],12966.59
+rotor_speed_[rpm],34.758673
+blade_pitch_[deg],1.6641
+blade_root_flap_moment_[N_m],28471.361
+blade_root_edge_moment_[N_m],4322.1968
+generator_power_[kW],NaN
+generator_torque_[N_m],NaN
+aero_thrust_force_[N],9538.762
+aero_thrust_coefficient_[-],0.682086
+total_thrust_force_[N],NaN
+###############################################################################
+# Please add more lines if you want to provide other variables.
+###############################################################################
